@@ -6,4 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".Recentbooks">
 
+    <SearchView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteY="1dp" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="729dp"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </ListView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

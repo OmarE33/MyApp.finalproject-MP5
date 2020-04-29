@@ -1,3 +1,8 @@
+import android.util.JsonReader;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
 
 public class Book {
@@ -6,7 +11,8 @@ public class Book {
     String author;
     String title;
     List<Integer> pageNumbers;
-    Book (int setPages, String setGenre, String setAuthor, String setTitle) {
+    String openLibraryId;
+    Book (int setPages, String setGenre, String setAuthor, String setTitle, JSONObject format) {
         pages = setPages;
         genre = setGenre;
         author = setAuthor;
@@ -21,5 +27,26 @@ public class Book {
                 pageNumbers.add(i, 0);
             }
         }
+    }
+    public String getOpenLibraryId() {
+        return openLibraryId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    // Get medium sized book cover from covers API
+    public String getCoverUrl() {
+        return "http://covers.openlibrary.org/b/olid/" + openLibraryId + "-M.jpg?default=false";
+    }
+
+    // Get large sized book cover from covers API
+    public String getLargeCoverUrl() {
+        return "http://covers.openlibrary.org/b/olid/" + openLibraryId + "-L.jpg?default=false";
     }
 }
