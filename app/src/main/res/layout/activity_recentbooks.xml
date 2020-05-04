@@ -7,6 +7,13 @@
     android:layout_height="match_parent"
     tools:context="com.example.myapp.Recentbooks">
 
+    <SearchView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:queryHint="Search Title Here"
+        android:iconifiedByDefault="false"
+        android:id="@+id/search_bar"/>
+
     <ListView
         android:id="@+id/theList"
         android:layout_width="match_parent"

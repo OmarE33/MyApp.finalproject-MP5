@@ -1,10 +1,11 @@
+package com.example.myapp;
+
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.example.myapp.Book;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -17,12 +18,12 @@ public class BookClient {
 
     String cover;
 
-    BookClient() {
+    public BookClient() {
 
     }
     public Book searchSpecific(String volumeLink) {
-        url = volumeLink;
-        Book first = new Book();
+        url = volumeLink + "?" + KEY_;
+        final Book first = new Book();
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, volumeLink, null, new Response.Listener<JSONObject>() {
                     @Override
@@ -32,6 +33,11 @@ public class BookClient {
                             int pages = (int) response.get("pageCount");
                             String title = (String) response.get("title");
                             String author = (String) response.get("authors");
+                            first.setAuthor(author);
+                            first.setPages(pages);
+                            first.setTitle(title);
+                            first.setCoverURL(cover);
+                            first.setUrl(url);
                         } catch(Exception e) {
 
                         }
@@ -42,18 +48,24 @@ public class BookClient {
                         // TODO: Handle error
                     }
                 });
+        return first;
     }
 
     public List<Book> search(String searchedTerm) {
         String searchURL = "https://www.googleapis.com/books/v1/volumes?q=" + searchedTerm + "+intitle:" + KEY_;
-        List<Book> books = new ArrayList<>();
+        final List<Book> books = new ArrayList<>();
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, searchURL, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            String link = (String) response.get("selfLink");
-
+                            BookClient search = new BookClient();
+                            JSONArray array = response.getJSONArray("items");
+                            for (int i = 0; i < array.length(); i++) {
+                                String link = (String) array.getJSONObject(i).get("selfLink");
+                                Book x = search.searchSpecific(link);
+                                books.add(x);
+                            }
                         } catch (Exception e) {
 
                         }

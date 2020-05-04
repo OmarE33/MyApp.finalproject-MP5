@@ -25,7 +25,7 @@ public class BookListAdapter extends ArrayAdapter<Book> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         String title = getItem(position).getTitle();
-        int pageNum = getItem(position).getPageNumbers();
+        int pageNum = getItem(position).getPages();
         String author = getItem(position).getAuthor();
 
         Book book = new Book(pageNum, author, title);
