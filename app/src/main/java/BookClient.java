@@ -29,8 +29,8 @@ public class BookClient {
                 });
     }
 
-    private void search() {
-        String searchURL = "https://www.googleapis.com/books/v1/volumes?q=" + "searchedterm" + "+intitle";
+    private void search(String searchedTerm) {
+        String searchURL = "https://www.googleapis.com/books/v1/volumes?q=" + searchedTerm + "+intitle";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, searchURL, null, new Response.Listener<JSONObject>() {
                     @Override

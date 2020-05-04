@@ -32,7 +32,13 @@ public class BookListAdapter extends ArrayAdapter<Book> {
 
         LayoutInflater inflater = LayoutInflater.from(makeCon);
         convertView = inflater.inflate(makeResource, parent, false);
-        TextView titleText = convertView.findViewById(R.id.)
+        TextView titleText = convertView.findViewById(R.id.bookTitle);
+        TextView authorText = convertView.findViewById(R.id.bookAuthor);
+        TextView genreText = convertView.findViewById(R.id.bookGenre);
+
+        titleText.setText(title);
+        authorText.setText(author);
+        genreText.setText(genre);
         return  convertView;
     }
 }
