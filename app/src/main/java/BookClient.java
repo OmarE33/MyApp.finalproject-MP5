@@ -5,14 +5,24 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.myapp.Book;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BookClient {
     String resourceID;
+
     private static final String KEY_ = "AIzaSyDPRMo_AtgJgG-Tn0cDej3_Lwiarrc2LZc";
+
     String url = "https://www.googleapis.com/books/v1/volumes/" + resourceID;
+
     JSONObject toUse;
+
+    List<Book> toPut;
+
     BookClient(String volumeID) {
         resourceID = volumeID;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
@@ -44,4 +54,5 @@ public class BookClient {
                     }
                 });
     }
+
 }
