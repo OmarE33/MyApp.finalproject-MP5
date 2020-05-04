@@ -1,5 +1,3 @@
-import android.widget.Button;
-
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -13,23 +11,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookClient {
-    String resourceID;
-
     private static final String KEY_ = "AIzaSyDPRMo_AtgJgG-Tn0cDej3_Lwiarrc2LZc";
 
-    String url = "https://www.googleapis.com/books/v1/volumes/" + resourceID;
+    String url;
 
-    JSONObject toUse;
+    String cover;
 
-    List<Book> toPut;
+    BookClient() {
 
-    BookClient(String volumeID) {
-        resourceID = volumeID;
+    }
+    public Book searchSpecific(String volumeLink) {
+        url = volumeLink;
+        Book first = new Book();
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+                (Request.Method.GET, volumeLink, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        toUse = response;
+                        try {
+                            cover = (String) response.get("thumbnail");
+                            int pages = (int) response.get("pageCount");
+                            String title = (String) response.get("title");
+                            String author = (String) response.get("authors");
+                        } catch(Exception e) {
+
+                        }
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -39,13 +44,19 @@ public class BookClient {
                 });
     }
 
-    private void search(String searchedTerm) {
-        String searchURL = "https://www.googleapis.com/books/v1/volumes?q=" + searchedTerm + "+intitle";
+    public List<Book> search(String searchedTerm) {
+        String searchURL = "https://www.googleapis.com/books/v1/volumes?q=" + searchedTerm + "+intitle:" + KEY_;
+        List<Book> books = new ArrayList<>();
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, searchURL, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        // sets the list to books matching search word in title
+                        try {
+                            String link = (String) response.get("selfLink");
+
+                        } catch (Exception e) {
+
+                        }
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -53,6 +64,7 @@ public class BookClient {
                         // TODO: Handle error
                     }
                 });
+        return books;
     }
 
 }
