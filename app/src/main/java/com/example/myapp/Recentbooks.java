@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -38,6 +40,7 @@ public class Recentbooks extends AppCompatActivity {
         final Context toUse = this;
         final ListView list = findViewById(R.id.theList);
         final SearchView searchBar = findViewById(R.id.search_bar);
+        Button addButton = findViewById(R.id.addButton);
 
         // Instantiate the cache
         Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
@@ -65,6 +68,13 @@ public class Recentbooks extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 return false;
+            }
+        });
+
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 
