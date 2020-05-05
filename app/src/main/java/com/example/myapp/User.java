@@ -1,3 +1,5 @@
+package com.example.myapp;
+
 import java.util.List;
 
 public class User {

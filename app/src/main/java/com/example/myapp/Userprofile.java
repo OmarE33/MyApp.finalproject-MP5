@@ -17,11 +17,13 @@ public class Userprofile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userprofile);
         favgenre = (TextView)findViewById(R.id.favgenre);
+        favauthor = (TextView)findViewById(R.id.favAuthor);
         run = (Button)findViewById(R.id.calculateButton);
         run.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                favgenre.setText();
+                favgenre.setText(User.favGenre());
+                favauthor.setText(User.favAuthor());
             }
         });
     }
