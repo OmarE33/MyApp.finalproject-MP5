@@ -24,6 +24,7 @@ public class Userprofile extends AppCompatActivity {
             public void onClick(View v) {
                 favgenre.setText(User.favGenre());
                 favauthor.setText(User.favAuthor());
+
             }
         });
     }
