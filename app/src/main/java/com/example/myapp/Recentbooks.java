@@ -2,6 +2,7 @@ package com.example.myapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.widget.ListView;
 
@@ -19,7 +20,6 @@ import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
@@ -35,10 +35,9 @@ public class Recentbooks extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recentbooks);
+        final Context toUse = this;
         final ListView list = findViewById(R.id.theList);
         final SearchView searchBar = findViewById(R.id.search_bar);
-        final BookClient searchBooks = new BookClient();
-
 
         // Instantiate the cache
         Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
@@ -48,48 +47,17 @@ public class Recentbooks extends AppCompatActivity {
 
         // Instantiate the RequestQueue with the cache and network.
         queue = new RequestQueue(cache, network);
-
         queue.start();
 
-
-
-        adapter = new BookListAdapter(this, R.layout.activity_custom, listToAdd);
+        //adapter = new BookListAdapter(this, R.layout.activity_custom, listToAdd);
 
         searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                adapter.getFilter().filter(query);
-                System.out.println(query);
+                //adapter.getFilter().filter(query);
 
-                String searchURL = "https://www.googleapis.com/books/v1/volumes?q=intitle:" + query;
-                final List<Book> books = new ArrayList<>();
-                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                        (Request.Method.GET, searchURL, null, new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                try {
-                                    BookClient search = new BookClient();
-                                    JSONArray array = response.getJSONArray("items");
-                                    for (int i = 0; i < 20; i++) {
-                                        String link = (String) array.getJSONObject(i).get("selfLink");
-                                        Book x = search.searchSpecific(link);
-                                        books.add(x);
-                                    }
-                                } catch (Exception e) {
-                                    System.out.println("error in search");
-                                    System.out.println(e);
-                                }
-                            }
-                        }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                // TODO: Handle error
-                            }
-                        });
-                queue.add(jsonObjectRequest);
-
-
-                listToAdd = books;
+                listToAdd = search(query);
+                adapter = new BookListAdapter(toUse, R.layout.activity_custom, listToAdd);
                 list.setAdapter(adapter);
                 return true;
             }
@@ -100,6 +68,77 @@ public class Recentbooks extends AppCompatActivity {
             }
         });
 
+    }
+
+    private static final String KEY_ = "AIzaSyDPRMo_AtgJgG-Tn0cDej3_Lwiarrc2LZc";
+
+    String url;
+
+    String cover;
+
+    public Book searchSpecific(String volumeLink) {
+        url = volumeLink;
+        final Book first = new Book();
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, volumeLink, null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            String title = response.getJSONObject("volumeInfo").getString("title");
+                            String author = response.getJSONObject("volumeInfo").getString("authors");
+                            int pages = response.getJSONObject("volumeInfo").getInt("pageCount");
+                            JSONArray genres = response.getJSONObject("volumeInfo").getJSONArray("categories");
+                            for (int i = 0; i < genres.length(); i++) {
+                                genre = genres.getString(0);
+                            }
+
+                            first.setAuthor(author);
+                            first.setPages(pages);
+                            first.setTitle(title);
+                            first.setUrl(url);
+                            first.setGenre(genre);
+                        } catch(Exception e) {
+                            System.out.println("error in searchSpecific");
+                            System.out.println(e);
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO: Handle error
+                    }
+                });
+        queue.add(jsonObjectRequest);
+        return first;
+    }
+
+    public List<Book> search(String searchedTerm) {
+        String searchURL = "https://www.googleapis.com/books/v1/volumes?q=intitle:" + searchedTerm;
+        final List<Book> books = new ArrayList<>();
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, searchURL, null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONArray array = response.getJSONArray("items");
+                            for (int i = 0; i < array.length(); i++) {
+                                String link = array.getJSONObject(i).getString("selfLink");
+                                Book x = searchSpecific(link);
+                                books.add(x);
+                            }
+                        } catch (Exception e) {
+                            System.out.println("error in search");
+                            System.out.println(e);
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO: Handle error
+                    }
+                });
+        queue.add(jsonObjectRequest);
+        return books;
     }
 
     public void onStop() {
