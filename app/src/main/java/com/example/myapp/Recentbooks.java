@@ -39,6 +39,7 @@ public class Recentbooks extends AppCompatActivity {
         final SearchView searchBar = findViewById(R.id.search_bar);
         final BookClient searchBooks = new BookClient();
 
+
         // Instantiate the cache
         Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
 
@@ -48,8 +49,8 @@ public class Recentbooks extends AppCompatActivity {
         // Instantiate the RequestQueue with the cache and network.
         queue = new RequestQueue(cache, network);
 
-        // Start the queue
         queue.start();
+
 
 
         adapter = new BookListAdapter(this, R.layout.activity_custom, listToAdd);
@@ -59,7 +60,36 @@ public class Recentbooks extends AppCompatActivity {
             public boolean onQueryTextSubmit(String query) {
                 adapter.getFilter().filter(query);
                 System.out.println(query);
-                listToAdd = searchBooks.search(searchBar.getQuery().toString());
+
+                String searchURL = "https://www.googleapis.com/books/v1/volumes?q=intitle:" + query;
+                final List<Book> books = new ArrayList<>();
+                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                        (Request.Method.GET, searchURL, null, new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                try {
+                                    BookClient search = new BookClient();
+                                    JSONArray array = response.getJSONArray("items");
+                                    for (int i = 0; i < 20; i++) {
+                                        String link = (String) array.getJSONObject(i).get("selfLink");
+                                        Book x = search.searchSpecific(link);
+                                        books.add(x);
+                                    }
+                                } catch (Exception e) {
+                                    System.out.println("error in search");
+                                    System.out.println(e);
+                                }
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                // TODO: Handle error
+                            }
+                        });
+                queue.add(jsonObjectRequest);
+
+
+                listToAdd = books;
                 list.setAdapter(adapter);
                 return true;
             }
