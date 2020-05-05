@@ -88,6 +88,7 @@ public class Recentbooks extends AppCompatActivity {
                             String author = response.getJSONObject("volumeInfo").getString("authors");
                             int pages = response.getJSONObject("volumeInfo").getInt("pageCount");
                             JSONArray genres = response.getJSONObject("volumeInfo").getJSONArray("categories");
+                            String genre = "not found";
                             for (int i = 0; i < genres.length(); i++) {
                                 genre = genres.getString(0);
                             }
