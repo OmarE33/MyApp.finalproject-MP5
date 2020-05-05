@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -38,6 +41,7 @@ public class Recentbooks extends AppCompatActivity {
         final Context toUse = this;
         final ListView list = findViewById(R.id.theList);
         final SearchView searchBar = findViewById(R.id.search_bar);
+        Button addButton = findViewById(R.id.addButton);
 
         // Instantiate the cache
         Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
@@ -68,6 +72,17 @@ public class Recentbooks extends AppCompatActivity {
             }
         });
 
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                User user;
+                List<Book> forUser = new ArrayList<>();
+                String title =
+                String author =
+                String genre =
+            }
+        });
+
     }
 
     private static final String KEY_ = "AIzaSyDPRMo_AtgJgG-Tn0cDej3_Lwiarrc2LZc";
@@ -88,6 +103,7 @@ public class Recentbooks extends AppCompatActivity {
                             String author = response.getJSONObject("volumeInfo").getString("authors");
                             int pages = response.getJSONObject("volumeInfo").getInt("pageCount");
                             JSONArray genres = response.getJSONObject("volumeInfo").getJSONArray("categories");
+                            String genre = "not found";
                             for (int i = 0; i < genres.length(); i++) {
                                 genre = genres.getString(0);
                             }

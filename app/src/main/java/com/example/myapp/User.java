@@ -1,5 +1,6 @@
 package com.example.myapp;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class User {
@@ -26,6 +27,7 @@ public class User {
      * @param setGenres genres read
      * @param setAuthors authors of books read
      * @param setPageNum page numbers of books read.
+     *
      */
     User (List<String> setBooks, List<String> setGenres, List<String> setAuthors, List<Integer> setPageNum) {
         books = setBooks;
@@ -34,6 +36,26 @@ public class User {
         pageNum = setPageNum;
     }
 
+    /**
+     * sets all list from a list of Book objects
+     * @param books2 llist of Book objects
+     */
+    User (List<Book> books2) {
+        books = new ArrayList<>();
+        genres = new ArrayList<>();
+        authors = new ArrayList<>();
+        pageNum = new ArrayList<>();
+        for (int i = 0; i < books2.size(); i++) {
+            String author = books2.get(i).getAuthor();
+            int pages = books2.get(i).getPages();
+            String title = books2.get(i).getTitle();
+            String genre = books2.get(i).getGenre();
+            books.add(title);
+            genres.add(genre);
+            authors.add(author);
+            pageNum.add(pages);
+        }
+    }
     /**
      * calculates the total number of pages the user has read.
      * @return the total number of pages read by the user.
