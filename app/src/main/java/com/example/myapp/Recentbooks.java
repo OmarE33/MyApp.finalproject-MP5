@@ -28,7 +28,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class Recentbooks extends AppCompatActivity {
+public class Recentbooks extends Temp {
     private BookListAdapter adapter;
     List<Book> listToAdd = new ArrayList<>();
     RequestQueue queue;
@@ -75,11 +75,9 @@ public class Recentbooks extends AppCompatActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                User user;
-                List<Book> forUser = new ArrayList<>();
-                String title =
-                String author =
-                String genre =
+                System.out.println("here");
+                Book book = (Book) parent.getAdapter().getItem(position);
+                meh.add(book);
             }
         });
 

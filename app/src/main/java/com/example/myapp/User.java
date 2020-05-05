@@ -73,7 +73,10 @@ public class User {
      * @return the user's favorite author.
      */
     public String favAuthor() {
-        List<Integer> num = pageNum;
+        List<Integer> num = new ArrayList<>();
+        if (authors.size() == 0) {
+            return "none";
+        }
         for (int i = 0; i < authors.size(); i++) {
             int count = 0;
             for (int j = 0; j < authors.size(); i++) {
@@ -81,7 +84,7 @@ public class User {
                     count++;
                 }
             }
-            num.add(count, i);
+            num.add(count);
         }
         int max = 0;
         int index = 0;
@@ -99,7 +102,10 @@ public class User {
      * @return returns the user's favorite genre.
      */
     public String favGenre() {
-        List<Integer> num = pageNum;
+        List<Integer> num = new ArrayList<>();
+        if (genres.size() == 0) {
+            return "none";
+        }
         for (int i = 0; i < genres.size(); i++) {
             int count = 0;
             for (int j = 0; j < genres.size(); i++) {
@@ -107,7 +113,7 @@ public class User {
                     count++;
                 }
             }
-            num.add(count, i);
+            num.add(count);
         }
         int max = 0;
         int index = 0;
