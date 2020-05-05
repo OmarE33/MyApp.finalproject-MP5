@@ -8,11 +8,21 @@
     tools:context="com.example.myapp.Recentbooks">
 
     <SearchView
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="50dp"
         android:queryHint="Search Title Here"
         android:iconifiedByDefault="false"
-        android:id="@+id/search_bar"/>
+        android:id="@+id/search_bar">
+
+    </SearchView>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_weight="1"
+        android:text="Back UP" />
 
     <ListView
         android:id="@+id/theList"

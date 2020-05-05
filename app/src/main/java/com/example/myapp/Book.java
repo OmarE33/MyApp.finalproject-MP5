@@ -1,12 +1,18 @@
 package com.example.myapp;
 
-
+// A bunch of getters and setters to the instance variables that make up the Book object
 public class Book {
+    // total pages in book
     int pages;
+    // author of book
     String author;
+    //title of book
     String title;
+    //url of the thumbnail image of book
     String coverURL;
+    //specific url of book that can be used for a GET request
     String url;
+    //genre of the book
     String genre;
 
     public void setCoverURL(String coverURL) {

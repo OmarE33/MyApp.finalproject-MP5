@@ -12,6 +12,10 @@ import androidx.annotation.Nullable;
 
 import java.util.List;
 
+/**
+ * cutom adapter that is similar to ArrayListAdapter to account for the custom layout of the app's
+ * RecentBooks screen
+ */
 public class BookListAdapter extends ArrayAdapter<Book> {
     private Context makeCon;
     private int makeResource;

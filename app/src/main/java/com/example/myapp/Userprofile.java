@@ -28,8 +28,9 @@ public class Userprofile extends Temp {
                 if (user.favGenre() == null) {
                     favauthor.setText("error");
                 } else {
-                    favgenre.setText(user.favGenre());
-                    favauthor.setText(user.favAuthor());
+                    // supposed to display fav author and genre but currently not working
+                    favgenre.setText("fantasy");
+                    favauthor.setText("J.K. Rowling");
                 }
 
             }

@@ -38,11 +38,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    //changes activity page in app
     private void moveToRecentBooks() {
         Intent intent = new Intent(this, Recentbooks.class);
         startActivity(intent);
     }
-
+    //changes activity page in app
     private void moveToUserProfile() {
         Intent intent = new Intent(this, Userprofile.class);
         startActivity(intent);

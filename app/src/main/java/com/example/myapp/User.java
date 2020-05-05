@@ -38,7 +38,7 @@ public class User {
 
     /**
      * sets all list from a list of Book objects
-     * @param books2 llist of Book objects
+     * @param books2 list of Book objects
      */
     User (List<Book> books2) {
         books = new ArrayList<>();
