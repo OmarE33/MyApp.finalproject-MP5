@@ -7,6 +7,7 @@ public class Book {
     String title;
     String coverURL;
     String url;
+    String genre;
 
     public void setCoverURL(String coverURL) {
         this.coverURL = coverURL;
@@ -43,10 +44,18 @@ public class Book {
 
     }
 
-    public Book (int pageCount, String setAuthor, String setTitle) {
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public Book (String setGenre, String setAuthor, String setTitle) {
         author = setAuthor;
         title = setTitle;
-        pages = pageCount;
+        genre = setGenre;
     }
 
     public String getTitle() {

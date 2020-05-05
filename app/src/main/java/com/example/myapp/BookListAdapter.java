@@ -25,10 +25,10 @@ public class BookListAdapter extends ArrayAdapter<Book> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         String title = getItem(position).getTitle();
-        int pageNum = getItem(position).getPages();
         String author = getItem(position).getAuthor();
+        String genre = getItem(position).getGenre();
 
-        Book book = new Book(pageNum, author, title);
+        Book book = new Book(genre, author, title);
 
         LayoutInflater inflater = LayoutInflater.from(makeCon);
         convertView = inflater.inflate(makeResource, parent, false);
@@ -38,7 +38,7 @@ public class BookListAdapter extends ArrayAdapter<Book> {
 
         titleText.setText(title);
         authorText.setText(author);
-        genreText.setText(pageNum);
+        genreText.setText(genre);
         return  convertView;
     }
 }
