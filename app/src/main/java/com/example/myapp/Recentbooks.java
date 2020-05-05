@@ -9,9 +9,28 @@ import java.util.ArrayList;
 import java.util.List;
 import android.widget.SearchView;
 
+import com.android.volley.Cache;
+import com.android.volley.Network;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.BasicNetwork;
+import com.android.volley.toolbox.DiskBasedCache;
+import com.android.volley.toolbox.HurlStack;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 public class Recentbooks extends AppCompatActivity {
     private BookListAdapter adapter;
     List<Book> listToAdd = new ArrayList<>();
+    RequestQueue queue;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,6 +38,19 @@ public class Recentbooks extends AppCompatActivity {
         final ListView list = findViewById(R.id.theList);
         final SearchView searchBar = findViewById(R.id.search_bar);
         final BookClient searchBooks = new BookClient();
+
+        // Instantiate the cache
+        Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
+
+        // Set up the network to use HttpURLConnection as the HTTP client.
+        Network network = new BasicNetwork(new HurlStack());
+
+        // Instantiate the RequestQueue with the cache and network.
+        queue = new RequestQueue(cache, network);
+
+        // Start the queue
+        queue.start();
+
 
         adapter = new BookListAdapter(this, R.layout.activity_custom, listToAdd);
 
@@ -40,4 +72,7 @@ public class Recentbooks extends AppCompatActivity {
 
     }
 
+    public void onStop() {
+        super.onStop();
+    }
 }
