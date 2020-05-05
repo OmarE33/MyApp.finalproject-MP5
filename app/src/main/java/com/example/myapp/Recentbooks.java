@@ -21,24 +21,19 @@ public class Recentbooks extends AppCompatActivity {
         final BookClient searchBooks = new BookClient();
 
         adapter = new BookListAdapter(this, R.layout.activity_custom, listToAdd);
-        System.out.println("oncreate");
 
         searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 adapter.getFilter().filter(query);
+                System.out.println(query);
                 listToAdd = searchBooks.search(searchBar.getQuery().toString());
-
                 list.setAdapter(adapter);
-                return false;
+                return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                adapter.getFilter().filter(newText);
-                listToAdd = searchBooks.search(searchBar.getQuery().toString());
-
-                list.setAdapter(adapter);
                 return false;
             }
         });
