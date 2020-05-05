@@ -7,9 +7,10 @@
     tools:context=".Userprofile">
 
     <TextView
-        android:id="@+id/totPage"
+        android:id="@+id/favgenre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/calculateButton"
         android:layout_marginStart="104dp"
         android:layout_marginLeft="104dp"
         android:layout_marginTop="269dp"
@@ -19,11 +20,13 @@
         android:text="@android:string/autofill"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.125" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/NamefavAuthor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="246dp"
@@ -32,14 +35,17 @@
         android:layout_marginEnd="106dp"
         android:layout_marginRight="106dp"
         android:layout_marginBottom="294dp"
-        android:text="TextView"
+        android:text="Favourite Author"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.316"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.943" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/Namefavgenre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="104dp"
@@ -48,16 +54,20 @@
         android:layout_marginEnd="248dp"
         android:layout_marginRight="248dp"
         android:layout_marginBottom="294dp"
-        android:text="TextView"
+        android:text="Favourite Genre"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.66"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.95" />
 
     <TextView
         android:id="@+id/favAuthor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/calculateButton"
         android:layout_marginStart="246dp"
         android:layout_marginLeft="246dp"
         android:layout_marginTop="269dp"
@@ -67,8 +77,10 @@
         android:text="@android:string/autofill"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.125" />
 
     <Button
         android:id="@+id/calculateButton"

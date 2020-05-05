@@ -33,7 +33,7 @@
             android:id="@+id/bookGenre"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:layout_below="@+id/textView2"
+            android:layout_below="@+id/NamefavAuthor"
             android:gravity="center"
             android:text="TextView3" />
     </LinearLayout>
